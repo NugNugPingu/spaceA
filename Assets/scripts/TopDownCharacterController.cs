@@ -9,13 +9,14 @@ namespace Cainos.PixelArtTopDown_Basic
         public float speed;
 
         private Animator animator;
-
+        
         private void Start()
         {
             animator = GetComponent<Animator>();
+            
         }
 
-
+        
         private void Update()
         {
             Vector2 dir = Vector2.zero;
@@ -40,11 +41,19 @@ namespace Cainos.PixelArtTopDown_Basic
                 dir.y = -1;
                 animator.SetInteger("Direction", 0);
             }
+            
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 7;
+            } else if(!Input.GetKey(KeyCode.LeftShift)&&speed == 7)
+            {
+                speed = 5;
+            }
 
             dir.Normalize();
             animator.SetBool("IsMoving", dir.magnitude > 0);
-
-            GetComponent<Rigidbody2D>().velocity = speed * dir;
+            
+            GetComponent<Rigidbody2D>().velocity =  speed * dir;
         }
     }
 }
